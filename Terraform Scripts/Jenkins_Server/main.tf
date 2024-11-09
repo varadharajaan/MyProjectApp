@@ -83,8 +83,16 @@ resource "aws_instance" "JenkinsServer" {
   }
 }
 
-output "name" {
-  # display public ip of Jenkins Server
+output "public_ip" {
   value = aws_instance.JenkinsServer.public_ip
-  
+}
+
+# Output the instance ID
+output "instance_id" {
+  value = aws_instance.JenkinsServer.id
+}
+
+# Output SSH connection command
+output "ssh_connection" {
+  value = "ssh ec2-user@${aws_instance.JenkinsServer.public_ip}"
 }

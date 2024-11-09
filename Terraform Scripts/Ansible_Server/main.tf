@@ -9,8 +9,16 @@ resource "aws_instance" "AnsibleServer" {
   }
 }
 
-output "name" {
-  # display public ip of Jenkins Server
+output "public_ip" {
   value = aws_instance.AnsibleServer.public_ip
-  
+}
+
+# Output the instance ID
+output "instance_id" {
+  value = aws_instance.AnsibleServer.id
+}
+
+# Output SSH connection command
+output "ssh_connection" {
+  value = "ssh ec2-user@${aws_instance.AnsibleServer.public_ip}"
 }

@@ -8,3 +8,17 @@ resource "aws_instance" "EKS_Server" {
     "Name" = "EKS-Server"
   }
 }
+
+output "public_ip" {
+  value = aws_instance.EKS_Server.public_ip
+}
+
+# Output the instance ID
+output "instance_id" {
+  value = aws_instance.EKS_Server.id
+}
+
+# Output SSH connection command
+output "ssh_connection" {
+  value = "ssh ec2-user@${aws_instance.EKS_Server.public_ip}"
+}
