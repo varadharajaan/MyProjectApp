@@ -8,7 +8,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "project-register"
+    bucket = "project-register-demo-vd"
     key    = "ansible/terraform.tfstate"
     region = "us-east-2"
 

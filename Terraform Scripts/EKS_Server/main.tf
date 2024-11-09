@@ -6,3 +6,5 @@ resource "aws_instance" "EKS_Server" {
 
   tags = {
     "Name" = "EKS-Server"
+  }
+}
