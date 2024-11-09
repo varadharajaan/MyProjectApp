@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: merciboi-myapp
+  name: demo-myapp
   labels:
      app: myapp
 
@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: chydinma/myapp
+        image: varadharajaan/myapp
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
