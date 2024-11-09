@@ -36,11 +36,12 @@
 
     # 5. Disable Docker Content Trust and build Docker image
     - name: Build Docker image with sudo
-      command: sudo DOCKER_CONTENT_TRUST=0 docker build -t {{ dockerhub_repo }}:latest .
+      command: DOCKER_CONTENT_TRUST=0 docker build -t {{ dockerhub_repo }}:latest .
       args:
         chdir: /opt/docker
       register: build_result
       ignore_errors: yes
+      become: yes
 
     # 6. Check if the Docker build was successful
     - name: Fail if Docker build fails
