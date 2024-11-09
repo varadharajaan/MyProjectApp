@@ -8,3 +8,9 @@ resource "aws_instance" "JenkinsServer" {
     "Name" = "Jenkins-Server"
   }
 }
+
+output "name" {
+  # display public ip of Jenkins Server
+  value = aws_instance.JenkinsServer.public_ip
+  
+}

@@ -6,3 +6,11 @@ resource "aws_instance" "AnsibleServer" {
 
   tags = {
     "Name" = "Ansible-Server"
+  }
+}
+
+output "name" {
+  # display public ip of Jenkins Server
+  value = aws_instance.AnsibleServer.public_ip
+  
+}
