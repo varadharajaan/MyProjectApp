@@ -1,0 +1,4 @@
+# vars.yml
+dockerhub_username: "varadharajaan"
+dockerhub_password: "your_dockerhub_password"
+dockerhub_repo: "varadharajaan/myapp"

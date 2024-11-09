@@ -1,13 +1,64 @@
-- hosts: ansible
+---
+- hosts: 172.31.17.145
+  become: yes  # Use this if you need to run Docker commands as root or a sudo user
+  vars_files:
+    - vars.yml
 
   tasks:
-  - name: create docker image
-    command: docker build -t myapp:latest .
-    args:
-     chdir: /opt/docker
+    # 1. Log in to DockerHub
+    - name: Log in to DockerHub
+      command: >
+        docker login -u {{ dockerhub_username }} -p {{ dockerhub_password }}
+      register: login_result
+      ignore_errors: yes
 
-  - name: create tag to push image onto dockerhub
-    command: docker tag myapp:latest chydinma/myapp:latest
+    # 2. Check if login to DockerHub was successful
+    - name: Check if login to DockerHub was successful
+      fail:
+        msg: "Docker login failed. Please check credentials."
+      when: login_result.rc != 0
 
-  - name: push docker image
-    command: docker push chydinma/myapp:latest
+    # 3. Check current directory
+    - name: Check current directory
+      command: pwd
+      args:
+        chdir: /opt/docker
+      register: pwd_result
+    - debug:
+        var: pwd_result.stdout
+
+    # 4. List files in /opt/docker to verify Dockerfile is present
+    - name: List files in /opt/docker
+      command: ls -l /opt/docker
+      register: list_result
+    - debug:
+        var: list_result.stdout
+
+    # 5. Disable Docker Content Trust and build Docker image
+    - name: Build Docker image with sudo
+      command: sudo DOCKER_CONTENT_TRUST=0 docker build -t {{ dockerhub_repo }}:latest .
+      args:
+        chdir: /opt/docker
+      register: build_result
+      ignore_errors: yes
+
+    # 6. Check if the Docker build was successful
+    - name: Fail if Docker build fails
+      fail:
+        msg: "Docker build failed. Check the output for details."
+      when: build_result.rc != 0
+
+    # 7. Tag Docker image (Optional, since this is done by the build step)
+    - name: Tag Docker image
+      command: sudo docker tag {{ dockerhub_repo }}:latest {{ dockerhub_repo }}:latest
+
+    # 8. Push Docker image to DockerHub
+    - name: Push Docker image to DockerHub
+      command: sudo docker push {{ dockerhub_repo }}:latest
+      register: push_result
+
+    # 9. Check if the Docker push was successful
+    - name: Fail if Docker push fails
+      fail:
+        msg: "Docker push failed. Check the output for details."
+      when: push_result.rc != 0
