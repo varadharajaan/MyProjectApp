@@ -1,5 +1,5 @@
 ---
-- hosts: 172.31.17.145
+- hosts: ansible
   become: yes  # Use this if you need to run Docker commands as root or a sudo user
   vars_files:
     - vars.yml

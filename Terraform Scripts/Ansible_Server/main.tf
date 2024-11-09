@@ -5,7 +5,7 @@ resource "aws_instance" "AnsibleServer" {
   vpc_security_group_ids = [aws_security_group.web-traffic.id]
 
   tags = {
-    "Name" = "Ansible-Server"
+    "Name" = "Ansible-Serve"
   }
 }
 

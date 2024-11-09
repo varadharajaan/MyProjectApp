@@ -7,6 +7,7 @@ The guide in the video is your first help. Again, the Terraform Scripts and mani
 
 ## 2. Install Terraform as root user
 ```bash
+sudo su -
 sudo yum update –y
 sudo yum install -y yum-utils
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
@@ -118,7 +119,7 @@ sudo service docker start
 sudo systemctl start docker
 #Reboot
 init 6
-Start docker
+sudo systemctl start docker
 sudo su – ansadmin
 cd /opt/docker/
 ```
