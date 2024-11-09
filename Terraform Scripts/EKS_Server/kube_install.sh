@@ -23,6 +23,8 @@ echo "AWS CLI installed."
 # 4. Modify SSH configuration to allow root login
 echo "Modifying SSH configuration..."
 sudo sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+sudo sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
 
 # 5. Set root password (WARNING: Storing plaintext password in a script is insecure)
 echo "Setting root password..."
