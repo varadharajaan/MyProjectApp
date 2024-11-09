@@ -2,11 +2,20 @@
   user: root
 
   tasks:
-    - name: deploy regapp on kubernetes
+    - name: Deploy regapp on Kubernetes
       command: kubectl apply -f myapp-deployment.yml
+      args:
+        chdir: /opt/kubernetes
+      become: yes  # Run this task as sudo
 
-    - name: create service for regapp
+    - name: Create service for regapp
       command: kubectl apply -f myapp-service.yml
+      args:
+        chdir: /opt/kubernetes
+      become: yes  # Run this task as sudo
 
-    - name: update deployment with new pods if image updated in docker hub
+    - name: Update deployment with new pods if image updated in Docker Hub
       command: kubectl rollout restart deployment.apps/demo-myapp
+      args:
+        chdir: /opt/kubernetes
+      become: yes  # Run this task as sudo

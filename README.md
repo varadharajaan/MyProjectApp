@@ -220,8 +220,3 @@ vi myapp-service.yml
 ## 20. Deploy/Test the Application
 
 ## Happy you got to this point. Hope it worked!
-
-# Congratulations!
-
-# Merciboi Systems Solutions
-# info@merciboi.com
