@@ -4,7 +4,7 @@ variable "region" {
 }
 variable "my_instance_type" {
   type    = string
-  default = "t3.large"
+  default = "t3.small"
 }
 
 
